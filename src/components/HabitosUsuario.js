@@ -3,13 +3,11 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 import Habito from "./Habito";
-
-import ResetContext from '../contexts/ResetContext';
+import TokenContext from '../contexts/TokenContext';
 
 function HabitosUsuario(props) {
-    const [habitos, setHabitos] = useState([]);
-    const { token } = props;
-    const { reset } = useContext(ResetContext);
+    const { token } = useContext(TokenContext);
+    const [habitos, setHabitos] = useState([]);    
 
     useEffect(() => {
         const config = {
@@ -26,7 +24,7 @@ function HabitosUsuario(props) {
         promise.catch(() => alert("Tente mais tarde"));
 
 
-    }, [token, reset]);
+    }, [token]);
 
     return habitos.length > 0 ? (
         <>
@@ -45,7 +43,9 @@ function HabitosUsuario(props) {
         </>
 
     ) : (<ZeroHabitos>
+        <h1>
         Você não tem nenhum hábito cadastrado, adicione um para trackear!!
+        </h1>
     </ZeroHabitos>)
 
 
@@ -54,5 +54,7 @@ function HabitosUsuario(props) {
 export default HabitosUsuario;
 
 const ZeroHabitos = styled.h1`
-color: grey;
+color: #666666;
+font-size: 18px;
+margin: 30px 17px 0 17px;
 `

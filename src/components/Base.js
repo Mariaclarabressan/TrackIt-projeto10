@@ -1,27 +1,45 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import FinalizadoContext from '../contexts/FinalizadoContext';
 
-function Base(){
-    const { finalizado } = useContext(FinalizadoContext)
-    return(
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+
+
+import TokenContext from '../contexts/TokenContext';
+
+const percentage = 69;
+
+function Base() {
+    const { finalizado } = useContext(TokenContext)
+    return (
         <Footer>
-            <Link to = "/Habitos">
-                <p>Hábitos</p>
-            </Link>
+            <HabitosBase>
+                <Link to="/TelaHabitos">
+                    <p>Hábitos</p>
+                </Link>
+            </HabitosBase>
             <Centro>
-                <Link to= "Hoje">
+                <Link to="/TelaHoje">
                     <CircularProgressbar
-                    value={finalizado}
-                    text= {`Hoje`}
+                        value={percentage}
+                        text={`Hoje`}
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                            backgroundColor: "#52b6ff",
+                            textColor: "#fff",
+                            pathColor: "#fff",
+                            trailColor: "transparent",
+                        })}
                     />
                 </Link>
             </Centro>
-            <Link to = "/Histórico">
-                <p>Histórico</p>
-            </Link>
+            <Historico>
+                <Link to="/TelaHistórico">
+                    <p>Histórico</p>
+                </Link>
+            </Historico>
         </Footer>
     )
 
@@ -30,12 +48,50 @@ function Base(){
 export default Base;
 
 const Footer = styled.div`
-background-color: blue;
+background-color: #FFFFFF;
+position: fixed;
+bottom: 0;
+left:0;
+right:0;
+height: 70px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+color: #52b6ff;
 p{
-    color: grey;
+    font-size: 18px;
 }
 `
 const Centro = styled.div`
-background-color: red;
+margin-bottom: 50px;
+width: 90px;
+height: 90px;
+background-color: #52b6ff;
+border-radius: 100px;
+border: 6px solid #52b6ff;
+color: #FFFFFF;
+display: flex; 
+align-items: center; 
+justify-content: center;
+font-size: 18px;
 
+`
+const Historico = styled.p`
+margin-right: 26px; 
+font-size: 18px; 
+a{
+    text-decoration:none;
+}
+color: #52B6FF;
+
+`
+
+const HabitosBase = styled.p`
+margin-left: 26px;
+font-size: 18px;
+color: #52B6FF;
+
+a{
+    text-decoration:none;
+}
 `

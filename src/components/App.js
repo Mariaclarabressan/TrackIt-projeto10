@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import TelaLoging from "./TelaLoging";
 import TelaCadastro from "./TelaCadastro";
 import TelaHabitos from "./TelaHabitos";
-import Hoje from "./Hoje";
+import TelaHoje from "./TelaHoje";
 import Historico from "./Historico";
 import ImagemContext from '../contexts/ImagemContext';
 import TokenContext from '../contexts/TokenContext';
@@ -14,8 +14,10 @@ import ResetContext from '../contexts/ResetContext';
 function App() {
     const [token, setToken] = useState("");
     const [imagem, setImagem] = useState("");
-    const [finalizado, setFinalizado] = useState("");
-    const [reset, setReset] = useState("");
+    const [finalizado, setFinalizado] = useState("");   
+    const [atualiza, setAtualiza] = useState("");
+    const [concluido, setConcluido] = useState("");
+    const [input, setInput] = useState("")
     useEffect(() => {
         const tokenLocal = localStorage.getItem("token");
         if (tokenLocal) {
@@ -29,33 +31,35 @@ function App() {
         const finalizadoLocal = localStorage.getItem("finalizado")
         if (finalizadoLocal) {
             setFinalizado(finalizadoLocal);
+        }   
+        const atualizaLocal = localStorage.getItem("atualiza")
+        if (atualizaLocal) {
+            setFinalizado(atualizaLocal);
         }
-        const resetLocal = localStorage.getItem("reset")
-        if (resetLocal) {
-            setReset(resetLocal);
+        const concluidoLocal = localStorage.getItem("concluido")
+        if (concluidoLocal) {
+            setConcluido(concluidoLocal);
         }
+        const inputLocal = localStorage.getItem("input")
+        if (inputLocal) {
+            setInput(inputLocal);
+        }          
     }, []);
 
 
 
     return (
-        <TokenContext.Provider value={{ token, setToken }}>
-            <ImagemContext.Provider value={{ imagem, setImagem }}>
-                <ResetContext.Provider value={{ reset, setReset }}>
-                    <FinalizadoContext.Provider value={{ finalizado, setFinalizado }}>
-                        <BrowserRouter>
-                            <Routes>
-                                <Route path="/" element={<TelaLoging />} />
-                                <Route path="/TelaCadastro" element={<TelaCadastro />} />
-                                <Route path="/TelaHabitos" element={<TelaHabitos />} />
-                                <Route path="/TelaHoje" element={<Hoje />} />
-                                <Route path="/TelaHistorico" element={<Historico />} />
-                            </Routes>
-                        </BrowserRouter>
+        <TokenContext.Provider value={{ token, setToken, imagem, setImagem, finalizado, setFinalizado, atualiza, setAtualiza, concluido, setConcluido, input, setInput}}>
 
-                    </FinalizadoContext.Provider>
-                </ResetContext.Provider>
-            </ImagemContext.Provider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<TelaLoging />} />
+                    <Route path="/TelaCadastro" element={<TelaCadastro />} />
+                    <Route path="/TelaHabitos" element={<TelaHabitos />} />
+                    <Route path="/Hoje" element={<TelaHoje />} />
+                    <Route path="/TelaHistorico" element={<Historico />} />
+                </Routes>
+            </BrowserRouter >
         </TokenContext.Provider>
     )
 }

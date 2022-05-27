@@ -17,27 +17,29 @@ function TelaCadastro() {
     });
     const [carregando, setCarregando] = useState(false);
 
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
 
     function novoUsuario(event) {
-        event.prevetDefault();
-        //setCarregando(true);
+        event.preventDefault();
+        setCarregando(true);
         console.log(cadastro);
 
-        //const body = cadastro;
+        const body = cadastro;
 
-        //const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", body);
 
-        /*promise.then((response) => {
+        promise.then((response) => {
 
-            //setCarregando(false);
+
+            setCarregando(false);
 
             console.log(response.data)
-        });*/
-        /*promise.catch(() => {
+            navigate("/");
+        });
+        promise.catch(() => {
             alert("Não foi possível realizar seu cadastro, por favor tente mais tarde.");
             setCarregando(false);
-        });*/
+        });
 
     }
 
@@ -55,7 +57,7 @@ function TelaCadastro() {
                         type="email"
                         onChange={(event) => setCadastro({ ...cadastro, email: event.target.value })}
                         value={cadastro.email}
-                    //disable={carregando}
+                        
                     />
                 </div>
                 <div>
@@ -64,7 +66,7 @@ function TelaCadastro() {
                         type="name"
                         onChange={(event) => setCadastro({ ...cadastro, name: event.target.value })}
                         value={cadastro.name}
-                    //disable={carregando}
+                        
                     />
                 </div>
                 <div>
@@ -73,7 +75,7 @@ function TelaCadastro() {
                         type="password"
                         onChange={(event) => setCadastro({ ...cadastro, password: event.target.value })}
                         value={cadastro.password}
-                    //disable={carregando}
+                        
                     />
                 </div>
                 <div>
@@ -82,7 +84,7 @@ function TelaCadastro() {
                         type="text"
                         onChange={(event) => setCadastro({ ...cadastro, image: event.target.value })}
                         value={cadastro.image}
-                    //disable={carregando}
+                        
                     />
                 </div>
                 <div>

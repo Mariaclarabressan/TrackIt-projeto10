@@ -23,7 +23,7 @@ function Habito(props) {
     }
 
     return (
-        <Habito>
+        <Cartao>
             <Nome>{name}</Nome>
             <Dias>
                 <Dia selecionado={days.includes(0)}>D</Dia>
@@ -35,23 +35,40 @@ function Habito(props) {
                 <Dia selecionado={days.includes(6)}>S</Dia>
             </Dias>
             <Icone onClic={deletarHabito} src={Lixeira} alt="lixeira"></Icone>
-        </Habito>
+        </Cartao>
     );
 }
 
 export default Habito;
 
-
+const Cartao = styled.div`
+position: relative;
+width: 340px;
+background-color: #FFFFFF;
+margin: 20px auto 0 auto; 
+border-radius: 5px;
+padding: 18px;
+`
 const Nome = styled.p`
-color: red;
+font-size: 20px;
+color: #666666;
 `
 const Dias = styled.div`
-background-color: pink;
+display: flex;
+margin-top: 7px;
 `
 const Icone = styled.div`
-width: 20px;
+position: absolute;
+top: 17px;
+right: 17px;
+width: 13px;
 
 `
 const Dia = styled.div`
-border-radius : 5px; 
+border: 1px solid #d5d5d5;
+box-sizing: border-box;
+border-radius: 5px;
+font-size: 20px;
+padding: 6px 10px;
+margin-right: 4px; 
 `

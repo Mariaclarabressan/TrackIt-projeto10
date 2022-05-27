@@ -12,12 +12,11 @@ import axios from 'axios';
 
 
 function TelaLoging() {
+    const { setToken, setImagem } = useContext(TokenContext);
     const [login, setLogin] = useState({ email: '', password: '' });
 
     const [carregando, setCarregando] = useState(false);
-    const navigate = useNavigate();
-    const { setImagem } = useContext(ImagemContext);
-    const { setToken } = useContext(TokenContext);
+    const navigate = useNavigate();  
 
 
 
@@ -34,13 +33,15 @@ function TelaLoging() {
 
         promise.then((response) => {
             console.log(response.data);
-            navigate("/hoje");
+            
             setImagem(response.data.image);
             setToken(response.data.token);
             setCarregando(false);
 
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("image", response.data.image);
+
+            navigate("/TelaHabitos");
 
 
         });
