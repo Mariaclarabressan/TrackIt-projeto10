@@ -10,7 +10,9 @@ function HabitosUsuario(props) {
     const [habitos, setHabitos] = useState([]);    
 
     useEffect(() => {
+        console.log(token)
         const config = {
+            
             headers: { Authorization: `Bearer ${token}` }
         };
 

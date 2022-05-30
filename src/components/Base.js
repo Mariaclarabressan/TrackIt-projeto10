@@ -36,7 +36,7 @@ function Base() {
                 </Link>
             </Centro>
             <Historico>
-                <Link to="/TelaHistórico">
+                <Link to="/TelaHistorico">
                     <p>Histórico</p>
                 </Link>
             </Historico>

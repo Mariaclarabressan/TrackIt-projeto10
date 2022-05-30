@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -6,42 +6,84 @@ import axios from 'axios';
 
 import TokenContext from '../contexts/TokenContext';
 
-function NovoHabito(props) {
-    const { atualiza, setAtualiza, input, setInput } = useContext(TokenContext);
 
-    const { setNovoHabito, token } = props;
+export default function NovoHabito(props) {
 
-    const [criaHabito, setCriaHabito] = useState(setInput != null ? input : criaHabito);
-    const [dias, setDias] = useState([]);
-    const [clicou, setClicou] = useState({ domingo: false, segunda: false, terca: false, quarta: false, quinta: false, sexta: false, sabado: false })
+
+    const { token } = useContext(TokenContext);
+
+    const [habito, setHabito] = useState("");
+
+    const [dias, setDias] = useState([
+        {
+            name: "D",
+            id: 0,
+            isSelected: false
+
+        },
+        {
+            name: "S",
+            id: 1,
+            isSelected: false
+
+        },
+        {
+            name: "T",
+            id: 2,
+            isSelected: false
+
+        },
+        {
+            name: "Q",
+            id: 3,
+            isSelected: false,
+
+        },
+        {
+            name: "Q",
+            id: 4,
+            isSelected: false,
+
+        },
+        {
+            name: "S",
+            id: 5,
+            isSelected: false,
+
+        },
+        {
+            name: "S",
+            id: 6,
+            isSelected: false,
+
+        }
+
+    ])
+
+
     const [carregando, setCarregando] = useState(false);
 
-    const envioNovoHabito = {
-        name: criaHabito,
-        days: dias
-    };
+    useEffect(() => {
+        console.log(dias);
+    }, [dias])
 
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    }
 
-    function seleciona(valor, dia) {
-        if (dias.includes(valor)) {
-            for (let i = 0; i < dias.length; i++) {
-                if (dias[i] === valor) {
-                    dias.splice(i, 1);
-                    setClicou({ ...clicou, [dia]: false });
-                }
-            }
-        } else {
-            setDias([...dias, valor]);
-            setClicou({ ...clicou, [dia]: true });
-        }
+    function seleciona(diaID) {
+        
+
+
+        const diaSelecionado = dias.findIndex(day => day.id === diaID);
+        const array = dias;
+        array[diaSelecionado].isSelected = !array[diaSelecionado].isSelected
+        debugger;
+        setDias(array);
+
+
     }
 
     function adicionaHabito(event) {
 
-        event.preventDefault();
+        /*event.preventDefault();
         if (dias.length > 0) {
             setCarregando(true);
             const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", envioNovoHabito, config);
@@ -58,13 +100,13 @@ function NovoHabito(props) {
 
         } else {
             alert("Selecione pelo menos um dia");
-        }
+        }*/
     }
 
     function confereHabito(event) {
-        event.preventDefault();
+        /*event.preventDefault();
         setCriaHabito(criaHabito);
-        setNovoHabito(<></>);
+        setNovoHabito(<></>);*/
     }
 
 
@@ -75,20 +117,22 @@ function NovoHabito(props) {
                     <input
                         type="text"
                         placeholder="nome do hábito"
-                        onChange={(event) => setCriaHabito(event.target.value)}
-                        value={criaHabito}
+                        onChange={(event) => setHabito(event.target.value)}
+                        value={habito}
                     />
                 </CriaNovoHabito>
 
 
                 <NewHabitos>
-                    <NewHabito selecionado={clicou.domingo} onClick={() => seleciona(0, "domingo")}>D</NewHabito>
-                    <NewHabito selecionado={clicou.segunda} onClick={() => seleciona(1, "segunda")}>S</NewHabito>
-                    <NewHabito selecionado={clicou.terca} onClick={() => seleciona(2, "terca")}>T</NewHabito>
-                    <NewHabito selecionado={clicou.quarta} onClick={() => seleciona(3, "quarta")}>Q</NewHabito>
-                    <NewHabito selecionado={clicou.quinta} onClick={() => seleciona(4, "quinta")}>Q</NewHabito>
-                    <NewHabito selecionado={clicou.sexta} onClick={() => seleciona(5, "sexta")}>S</NewHabito>
-                    <NewHabito selecionado={clicou.sabado} onClick={() => seleciona(6, "sabado")}>S</NewHabito>
+
+                    {
+                        dias.map((dia) =>
+                        (
+
+                            <NewHabito key={dia.id} className={dia.isSelected ? grey : white} onClick={() => seleciona(dia.id)}>{dia.name}</NewHabito>
+                        )
+                        )
+                    }
                 </NewHabitos>
 
 
@@ -100,9 +144,9 @@ function NovoHabito(props) {
         </CriaCard>
     )
 
-}
-export default NovoHabito;
 
+
+}
 const CriaCard = styled.div`
 background-color: #FFFFFF;
 width: 340px;
@@ -137,6 +181,13 @@ border-radius: 5px;
 font-size: 20px; 
 padding: 6px 10px;
 margin-right: 4px; 
+`
+const grey = styled.style`
+background-color: #cfcfcf;
+`
+
+const white = styled.style`
+background-color: #FFFFFF;
 `
 const Botoes = styled.div`
 display: flex;

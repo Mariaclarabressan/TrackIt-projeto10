@@ -6,7 +6,7 @@ import ResetContext from '../contexts/ResetContext';
 import Lixeira from '../components/img/Lixeira.png';
 
 function Habito(props) {
-    const { reset, setReset } = useContext(ResetContext);
+    //const { reset, setReset } = useContext(ResetContext);
 
     const { id, name, days, token } = props;
 
@@ -17,7 +17,7 @@ function Habito(props) {
     function deletarHabito() {
         if (window.confirm("Deseja excluir esse hábito?")) {
             const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`, config);
-            promise.then(() => setReset(reset + 1));
+            promise.then(() => {});
             promise.catch(() => alert("Não foi possível deleter esse hábito"));
         }
     }
@@ -34,7 +34,7 @@ function Habito(props) {
                 <Dia selecionado={days.includes(5)}>S</Dia>
                 <Dia selecionado={days.includes(6)}>S</Dia>
             </Dias>
-            <Icone onClic={deletarHabito} src={Lixeira} alt="lixeira"></Icone>
+            <Icone onClick={deletarHabito} src={Lixeira} alt="lixeira"></Icone>
         </Cartao>
     );
 }

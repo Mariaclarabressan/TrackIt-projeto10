@@ -4,7 +4,7 @@ import TelaLoging from "./TelaLoging";
 import TelaCadastro from "./TelaCadastro";
 import TelaHabitos from "./TelaHabitos";
 import TelaHoje from "./TelaHoje";
-import Historico from "./Historico";
+import TelaHistorico from "./TelaHistorico";
 import ImagemContext from '../contexts/ImagemContext';
 import TokenContext from '../contexts/TokenContext';
 import FinalizadoContext from '../contexts/FinalizadoContext';
@@ -57,7 +57,7 @@ function App() {
                     <Route path="/TelaCadastro" element={<TelaCadastro />} />
                     <Route path="/TelaHabitos" element={<TelaHabitos />} />
                     <Route path="/Hoje" element={<TelaHoje />} />
-                    <Route path="/TelaHistorico" element={<Historico />} />
+                    <Route path="/TelaHistorico" element={<TelaHistorico />} />
                 </Routes>
             </BrowserRouter >
         </TokenContext.Provider>
